@@ -1,11 +1,14 @@
 <script setup>
 import {onMounted,ref} from "vue";
+
+let products= ref([])
 onMounted(async =>{
 
     getProducts()
 })
 const getProducts=async ()=>{
     let response=await axios.get("/api/get_all_product")
+    products.value=response.data.pr
     console.log('products',response)
 }
 </script>
