@@ -36,6 +36,24 @@ const updatePhoto(e)=>{
 
     }
 }
+
+const saveProduct=()=>{
+    const formData=new FormData()
+    formDatam.append('name',form.value.name)
+    formDatam.append('description',form.value.description)
+    formDatam.append('photo',form.value.photo)
+    formDatam.append('type',form.value.type)
+    formDatam.append('quantity',form.value.quantity)
+    formDatam.append('price',form.value.price)
+
+    axios.post("/api/add_product",formData)
+    .then((response)=>{
+
+
+    }).catch((error)=>{
+
+    })
+}
 </script>
 <template>
     <div class="container">

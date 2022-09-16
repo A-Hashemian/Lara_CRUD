@@ -18,3 +18,4 @@ Route::get('/', function () {
 });
 
 Route::get('/{pathMath}',function(){return view ('welcome');})->where('pathMath',".*");
+
