@@ -1,6 +1,16 @@
 <script setup>
 
-import {onMounted} from "vue";
+import {onMounted,ref} from "vue";
+let form=ref({
+    id='',
+    name='',
+    description='',
+    photo='',
+    type='',
+    quantity='',
+    price=''
+    }
+)
 onMounted(async ()=>{
 
     getsingleProduct()
@@ -13,8 +23,35 @@ const props=defineProps({
     }
 })
 
+const getPhoto= () =>{
+    let photo="/upload/image.png"
+    if(form.value.photo){
+        if(form.value.photo.indexOf('base64')!=-1){
+            photo= form.value.photo
+        }else {
+            photo='/upload'+form.value.photo
+        }
+        return photo
+    }
+    reader.readAsDataURL(file);
+}
+
+const updatePhoto=(e)=>{
+    let file=e.target.file[0];
+    let reader= new FileReader();
+    let limit=1024*1024*2;
+    if (file['size']>limit){
+        return false
+    }
+    reader.onloadend=(file)=>{
+        form.value.photo=reader.result;
+
+    }
+}
+
 const getsingleProduct=async ()=>{
     let response=await axios.get(`/api/get_edit_product/${props.id}`)
+    form.value=response.data.product
 }
 </script>
 
@@ -30,7 +67,7 @@ const getsingleProduct=async ()=>{
                 </div>
                 <div class="products__create__titlebar--item">
 
-                    <button class="btn btn-secondary ml-1" >
+                    <button class="btn btn-secondary ml-1" @click="updateProduct()" >
                         Save
                     </button>
                 </div>
@@ -40,17 +77,17 @@ const getsingleProduct=async ()=>{
                 <div class="products__create__main">
                     <div class="products__create__main--addInfo card py-2 px-2 bg-white">
                         <p class="mb-1">Name</p>
-                        <input type="text" class="input" >
+                        <input type="text" class="input" v-model="form.name">
 
                         <p class="my-1">Description (optional)</p>
-                        <textarea cols="10" rows="5" class="textarea" ></textarea>
+                        <textarea cols="10" rows="5" class="textarea"  v-model="form.description"></textarea>
 
                         <div class="products__create__main--media--images mt-2">
                             <ul class="products__create__main--media--images--list list-unstyled">
 
                                 <li class="products__create__main--media--images--item">
                                     <div class="products__create__main--media--images--item--imgWrapper">
-                                        <img class="products__create__main--media--images--item--img" >
+                                        <img class="products__create__main--media--images--item--img" :src="getPhoto()" >
                                     </div>
                                 </li>
 
@@ -58,7 +95,7 @@ const getsingleProduct=async ()=>{
                                 <li class="products__create__main--media--images--item">
                                     <form class="products__create__main--media--images--item--form">
                                         <label class="products__create__main--media--images--item--form--label" for="myfile">Add Image</label>
-                                        <input class="products__create__main--media--images--item--form--input" type="file" id="myfile" >
+                                        <input class="products__create__main--media--images--item--form--input" type="file" id="myfile" @change="updatePhoto()">
                                     </form>
                                 </li>
                             </ul>
@@ -74,21 +111,21 @@ const getsingleProduct=async ()=>{
                         <!-- Product unit -->
                         <div class="my-3">
                             <p>Product type</p>
-                            <input type="text" class="input" >
+                            <input type="text" class="input" v-model="form.type" >
                         </div>
                         <hr>
 
                         <!-- Product invrntory -->
                         <div class="my-3">
                             <p>Inventory</p>
-                            <input type="text" class="input" >
+                            <input type="text" class="input" v-model="form.quantity" >
                         </div>
                         <hr>
 
                         <!-- Product Price -->
                         <div class="my-3">
                             <p>Price</p>
-                            <input type="text" class="input" >
+                            <input type="text" class="input" v-model="form.price" >
                         </div>
                     </div>
 
@@ -97,7 +134,7 @@ const getsingleProduct=async ()=>{
             <!-- Footer Bar -->
             <div class="dflex justify-content-between align-items-center my-3">
                 <p ></p>
-                <button class="btn btn-secondary" >Save</button>
+                <button class="btn btn-secondary" @click="updateProduct()" >Save</button>
             </div>
 
         </div>

@@ -42,4 +42,13 @@ class ProductController extends Controller
 
               $product->save();
         }
+
+          public function get_edit_product($id){
+
+                 $products=Product::find($id);
+                 return response()-> json([
+                 'products'=> $products
+                 ],200)
+            }
+
 }
