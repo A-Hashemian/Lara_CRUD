@@ -44,7 +44,7 @@ const deleteProduct=(id)=>{
             .then(()=>{
 
             }).catch(()=>{
-                
+
             })
         }
     })
