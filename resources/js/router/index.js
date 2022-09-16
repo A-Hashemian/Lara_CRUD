@@ -17,7 +17,8 @@ import productEdit from '../components/products/edit.vue'
      {
 
          path: '/product/new',
-         component: productEdit
+         component: productEdit,
+         props:true
      },
      {
          name: 'notFound',

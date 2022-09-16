@@ -1,3 +1,23 @@
+<script setup>
+
+import {onMounted} from "vue";
+onMounted(async ()=>{
+
+    getsingleProduct()
+})
+
+const props=defineProps({
+    id:{
+        type:String,
+        default:''
+    }
+})
+
+const getsingleProduct=async ()=>{
+    let response=await axios.get(`/api/get_edit_product/${props.id}`)
+}
+</script>
+
 <template>
 
     <div class="container">
