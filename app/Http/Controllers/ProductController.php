@@ -14,4 +14,17 @@ class ProductController extends Controller
          'products'=> $products
          ],200)
     }
+
+     public function add_product(Request $request){
+
+             $products=new Product();
+             $products->name=$request->name;
+             $products->description=$request->description;
+
+             if($request->photo!=""){
+
+             }else{
+
+             }
+        }
 }
