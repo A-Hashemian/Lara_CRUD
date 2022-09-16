@@ -1,6 +1,7 @@
 
 <script setup>
 import { ref } from "vue"
+import {useRouter} from "vue-router"
 
 let form=ref({
   name='',
@@ -11,6 +12,8 @@ let form=ref({
   price=''
 })
 
+
+const router=useRouter();
 const getPhoto= () =>{
 let photo="/upload/image.png"
     if(form.value.photo){
@@ -24,7 +27,7 @@ let photo="/upload/image.png"
 reader.readAsDataURL(file);
 }
 
-const updatePhoto(e)=>{
+const updatePhoto=(e)=>{
     let file=e.target.file[0];
     let reader= new FileReader();
     let limit=1024*1024*2;
@@ -49,7 +52,14 @@ const saveProduct=()=>{
     axios.post("/api/add_product",formData)
     .then((response)=>{
 
+         form.value.name="",
+         form.value.description="",
+         form.value.photo="",
+         form.value.type="",
+         form.value.quantity="",
+         form.value.price=""
 
+        router.push('/')
     }).catch((error)=>{
 
     })
