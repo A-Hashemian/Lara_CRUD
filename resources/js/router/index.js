@@ -2,6 +2,7 @@ import {createRouter,createWebHistory} from 'vue-router'
 import productIndex from '../components/products/index.vue'
 import notFounded from '../components/notFound.vue'
 import productNew from '../components/products/new.vue'
+import productEdit from '../components/products/edit.vue'
  const routes=[
      {
          name: 'home',
@@ -11,7 +12,12 @@ import productNew from '../components/products/new.vue'
      {
 
          path: '/product/new',
-         component: productIndex
+         component: productNew
+     },
+     {
+
+         path: '/product/new',
+         component: productEdit
      },
      {
          name: 'notFound',
