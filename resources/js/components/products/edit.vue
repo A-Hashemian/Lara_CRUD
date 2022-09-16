@@ -62,7 +62,7 @@ const updateProduct=(e)=>{
     formDatam.append('type',form.value.type)
     formDatam.append('quantity',form.value.quantity)
     formDatam.append('price',form.value.price)
-    axios.post("/update_product",formData)
+    axios.post(`/update_product/${form.value.id}`,formData)
         .then((response)=>{
 
 
