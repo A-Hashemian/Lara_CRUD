@@ -4,12 +4,12 @@ import { ref } from "vue"
 import {useRouter} from "vue-router"
 
 let form=ref({
-  name='',
-  description='',
-  photo='',
-  type='',
-  quantity='',
-  price=''
+  name:'',
+  description:'',
+  photo:'',
+  type:'',
+  quantity:'',
+  price:''
 })
 
 

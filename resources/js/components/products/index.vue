@@ -42,9 +42,15 @@ const deleteProduct=(id)=>{
         if(result.value){
             axios.get('/api/delete_product/'+id)
             .then(()=>{
+              Swal.fire(
+                  'Delete',
+                  'Product delete successfully',
+                  'success'
+              )
 
+                getProducts()
             }).catch(()=>{
-
+              Swal.fire("Failed!","There was something wrong ","Warning")
             })
         }
     })

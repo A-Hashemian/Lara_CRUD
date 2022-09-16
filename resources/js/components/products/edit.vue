@@ -4,13 +4,13 @@ import {onMounted,ref} from "vue";
 import {useRouter} from "vue-router";
 
 let form=ref({
-    id='',
-    name='',
-    description='',
-    photo='',
-    type='',
-    quantity='',
-    price=''
+    id:'',
+    name:'',
+    description:'',
+    photo:'',
+    type:'',
+    quantity:'',
+    price:''
     }
 )
 onMounted(async ()=>{
@@ -79,8 +79,8 @@ const updateProduct=(e)=>{
 
             toast.fire({
 
-                icon="success",
-                title="product update successfuly"
+                icon:"success",
+                title:"product update successfuly"
             })
 
             })
