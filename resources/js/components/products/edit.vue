@@ -1,6 +1,8 @@
 <script setup>
 
 import {onMounted,ref} from "vue";
+import {useRouter} from "vue-router";
+
 let form=ref({
     id='',
     name='',
@@ -23,6 +25,8 @@ const props=defineProps({
     }
 })
 
+
+const router=useRouter()
 const getPhoto= () =>{
     let photo="/upload/image.png"
     if(form.value.photo){
@@ -64,7 +68,20 @@ const updateProduct=(e)=>{
     formDatam.append('price',form.value.price)
     axios.post(`/update_product/${form.value.id}`,formData)
         .then((response)=>{
+            form.value.name="",
+                form.value.description="",
+                form.value.photo="",
+                form.value.type="",
+                form.value.quantity="",
+                form.value.price="",
 
+                router.push('/')
+
+            toast.fire({
+
+                icon="success",
+                title="product update successfuly"
+            })
 
             })
         .catch((error)=>{

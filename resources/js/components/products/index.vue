@@ -78,7 +78,7 @@ const onEdit=(id)=>{
                     <button class="btn-icon btn-icon-success" @click="onEdit(item.id)" >
                         <i class="fas fa-pencil-alt"></i>
                     </button>
-                    <button class="btn-icon btn-icon-danger" >
+                    <button class="btn-icon btn-icon-danger" @click="deleteProduct(item.id)" >
                         <i class="far fa-trash-alt"></i>
                     </button>
                 </div>
