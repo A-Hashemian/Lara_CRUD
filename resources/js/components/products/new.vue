@@ -19,8 +19,22 @@ let photo="/upload/image.png"
         }else {
             photo='/upload'+form.value.photo
         }
+        return photo
     }
-return photo
+reader.readAsDataURL(file);
+}
+
+const updatePhoto(e)=>{
+    let file=e.target.file[0];
+    let reader= new FileReader();
+    let limit=1024*1024*2;
+    if (file['size']>limit){
+        return false
+    }
+    reader.onloadend=(file)=>{
+        form.value.photo=reader.result;
+
+    }
 }
 </script>
 <template>
@@ -34,7 +48,7 @@ return photo
                 </div>
                 <div class="products__create__titlebar--item">
 
-                    <button class="btn btn-secondary ml-1" >
+                    <button class="btn btn-secondary ml-1" @click="saveProduct()>
                         Save
                     </button>
                 </div>
@@ -76,21 +90,21 @@ return photo
                         <!-- Product unit -->
                         <div class="my-3">
                             <p>Product type</p>
-                            <input type="text" class="input" >
+                            <input type="text" class="input"  v-model="form.type">
                         </div>
                         <hr>
 
                         <!-- Product invrntory -->
                         <div class="my-3">
                             <p>Inventory</p>
-                            <input type="text" class="input" >
+                            <input type="text" class="input" v-model="form.quantity">
                         </div>
                         <hr>
 
                         <!-- Product Price -->
                         <div class="my-3">
                             <p>Price</p>
-                            <input type="text" class="input" >
+                            <input type="text" class="input"  v-model="form.price">
                         </div>
                     </div>
 
@@ -99,7 +113,7 @@ return photo
             <!-- Footer Bar -->
             <div class="dflex justify-content-between align-items-center my-3">
                 <p ></p>
-                <button class="btn btn-secondary" >Save</button>
+                <button class="btn btn-secondary" @click="saveProduct()">Save</button>
             </div>
 
         </div>
