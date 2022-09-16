@@ -28,6 +28,28 @@ const onEdit=(id)=>{
     router.push('/product/edit/'+id)
 
 }
+const deleteProduct=(id)=>{
+  Swal.fire({
+      title:'Are you sure?',
+      text:"You Can't go back",
+      icon:'warning',
+      showCancelButton:true,
+      confirmButtonColor:'3085d6',
+      cancelButtonText:'#d33',
+      confirmButtonText:'Yes ,delete it!'
+  })
+    .then((result)=>{
+        if(result.value){
+            axios.get('/api/delete_product/'+id)
+            .then(()=>{
+
+            }).catch(()=>{
+                
+            })
+        }
+    })
+
+}
 </script>
 
 <template>
