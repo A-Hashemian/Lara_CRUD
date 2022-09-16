@@ -1,15 +1,26 @@
 <script setup>
 import {onMounted,ref} from "vue";
+import {useRouter} from "vue-router"
 
+const router=useRouter()
 let products= ref([])
 onMounted(async =>{
 
     getProducts()
 })
+
+const newProduct=()=>{
+
+    router.push('/product/new')
+}
 const getProducts=async ()=>{
     let response=await axios.get("/api/get_all_product")
-    products.value=response.data.pr
-    console.log('products',response)
+    products.value=response.data.products
+
+}
+
+const ourImage=(img)=>{
+    return "/upload/"+img
 }
 </script>
 
@@ -23,7 +34,7 @@ const getProducts=async ()=>{
                     <h1 class="my-1">Products</h1>
                 </div>
                 <div class="customers__titlebar--item">
-                    <button class="btn btn-secondary my-1" >
+                    <button class="btn btn-secondary my-1" @click="newProduct" >
                         Add Product
                     </button>
                 </div>
@@ -44,18 +55,18 @@ const getProducts=async ()=>{
             </div>
 
             <!-- product 1 -->
-            <div class="table--items products__list__item" >
+            <div class="table--items products__list__item " v-for="item in products":key="item.id" v-if="products.length>0">
                 <div class="products__list__item--imgWrapper">
-                    <img class="products__list__item--img" src="1.jpg"  style="height: 40px;">
+                    <img class="products__list__item--img":src="ourImage(item.photo)"  style="height: 40px;" v-if="item.photo">
                 </div>
-                <a href="# " class="table--items--col2">
-                    Product name
-                </a>
+                <p  class="table--items--col2">
+                    {{item.name}}
+                </p>
                 <p class="table--items--col2">
-                    type
+                    {{item.type}}
                 </p>
                 <p class="table--items--col3">
-                    10
+                    {{item.quantity}}
                 </p>
                 <div>
                     <button class="btn-icon btn-icon-success" >
@@ -65,6 +76,9 @@ const getProducts=async ()=>{
                         <i class="far fa-trash-alt"></i>
                     </button>
                 </div>
+            </div>
+            <div  class="table--items products__list__item " v-else>
+                <p>Product Not Found.</p>>
             </div>
 
         </div>
