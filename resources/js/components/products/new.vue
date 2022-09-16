@@ -1,3 +1,28 @@
+
+<script setup>
+import { ref } from "vue"
+
+let form=ref({
+  name='',
+  description='',
+  photo='',
+  type='',
+  quantity='',
+  price=''
+})
+
+const getPhoto= () =>{
+let photo="/upload/image.png"
+    if(form.value.photo){
+        if(form.value.indexOf('base64')!=-1){
+            photo= form.value.photo
+        }else {
+            photo='/upload'+form.value.photo
+        }
+    }
+return photo
+}
+</script>
 <template>
     <div class="container">
         <div class="products__create ">
@@ -19,23 +44,23 @@
                 <div class="products__create__main">
                     <div class="products__create__main--addInfo card py-2 px-2 bg-white">
                         <p class="mb-1">Name</p>
-                        <input type="text" class="input" >
+                        <input type="text" class="input" v-model="form.name">
 
                         <p class="my-1">Description (optional)</p>
-                        <textarea cols="10" rows="5" class="textarea" ></textarea>
+                        <textarea cols="10" rows="5" class="textarea" v-model="form.description" ></textarea>
 
                         <div class="products__create__main--media--images mt-2">
                             <ul class="products__create__main--media--images--list list-unstyled">
                                 <li class="products__create__main--media--images--item">
                                     <div class="products__create__main--media--images--item--imgWrapper">
-                                        <img class="products__create__main--media--images--item--img" alt="" />
+                                        <img class="products__create__main--media--images--item--img" :src="getPhoto()" alt="" />
                                     </div>
                                 </li>
                                 <!-- upload image small -->
                                 <li class="products__create__main--media--images--item">
                                     <form class="products__create__main--media--images--item--form">
                                         <label class="products__create__main--media--images--item--form--label" for="myfile">Add Image</label>
-                                        <input class="products__create__main--media--images--item--form--input" type="file" id="myfile" >
+                                        <input class="products__create__main--media--images--item--form--input" type="file" id="myfile" @change="updatePhoto" >
                                     </form>
                                 </li>
                             </ul>
